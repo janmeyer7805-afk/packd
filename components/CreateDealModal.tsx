@@ -17,11 +17,11 @@ interface CreateDealModalProps {
 
 const CATEGORIES: Category[] = ['Supplements', 'Streetwear', 'Beauty', 'Sport'];
 
-const categoryEmojis: Record<Category, string> = {
-  Supplements: '',
-  Streetwear: '',
-  Beauty: '',
-  Sport: '',
+const categoryIcons: Record<Category, string> = {
+  Supplements: '💊',
+  Streetwear: '👟',
+  Beauty: '✨',
+  Sport: '🏋️',
 };
 
 export default function CreateDealModal({ open, onOpenChange, userId, onSuccess }: CreateDealModalProps) {
@@ -113,48 +113,48 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
 
   return (
     <Dialog open={open} onOpenChange={(v) => { if (!v) reset(); onOpenChange(v); }}>
-      <DialogContent className="bg-[#111] border-white/10 text-white sm:max-w-md max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-[#0a0a0a] border-white/[0.08] text-white sm:max-w-md max-h-[85vh] overflow-y-auto backdrop-blur-2xl">
         <DialogHeader>
           <div className="flex items-center justify-between">
             <DialogTitle className="text-lg font-bold">Deal erstellen</DialogTitle>
             <button
               onClick={() => onOpenChange(false)}
-              className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+              className="w-8 h-8 rounded-lg bg-white/[0.04] flex items-center justify-center text-white/30 hover:text-white/60 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
-          <p className="text-xs text-white/40">Starte einen Gruppenrabatt — läuft in 48h ab</p>
+          <p className="text-xs text-white/20">Starte einen Gruppenrabatt — läuft in 48h ab</p>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           {/* Product name */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-medium text-white/50">Produktname *</label>
+          <div className="space-y-2">
+            <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Produktname *</label>
             <input
               type="text"
               value={form.title}
               onChange={e => update('title', e.target.value)}
               placeholder="z.B. Whey Protein 2kg – Vanilla"
-              className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#0066FF]/60 transition-colors"
+              className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
             />
           </div>
 
           {/* Photo URL */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-medium text-white/50">Produktbild (URL)</label>
+          <div className="space-y-2">
+            <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Produktbild (URL)</label>
             <div className="relative">
-              <Upload className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+              <Upload className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/15" />
               <input
                 type="url"
                 value={form.photo_url}
                 onChange={e => update('photo_url', e.target.value)}
                 placeholder="https://..."
-                className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#0066FF]/60 transition-colors"
+                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
               />
             </div>
             {form.photo_url && (
-              <div className="rounded-lg overflow-hidden aspect-video mt-2">
+              <div className="rounded-xl overflow-hidden aspect-video mt-2 border border-white/[0.06]">
                 <img
                   src={form.photo_url}
                   alt="Preview"
@@ -167,10 +167,10 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
 
           {/* Prices */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-white/50">Normalpreis *</label>
+            <div className="space-y-2">
+              <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Normalpreis *</label>
               <div className="relative">
-                <Euro className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                <Euro className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/15" />
                 <input
                   type="number"
                   step="0.01"
@@ -178,14 +178,14 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
                   value={form.original_price}
                   onChange={e => update('original_price', e.target.value)}
                   placeholder="49,99"
-                  className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#0066FF]/60 transition-colors"
+                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
                 />
               </div>
             </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-white/50">Deal-Preis *</label>
+            <div className="space-y-2">
+              <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Deal-Preis *</label>
               <div className="relative">
-                <Euro className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                <Euro className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/15" />
                 <input
                   type="number"
                   step="0.01"
@@ -193,7 +193,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
                   value={form.deal_price}
                   onChange={e => update('deal_price', e.target.value)}
                   placeholder="34,99"
-                  className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#0066FF]/60 transition-colors"
+                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
                 />
               </div>
             </div>
@@ -201,17 +201,17 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
 
           {/* Discount preview */}
           {discount > 0 && (
-            <div className="bg-[#0066FF]/10 border border-[#0066FF]/20 rounded-lg p-3 flex items-center gap-2">
+            <div className="gradient-primary-subtle border border-[#0066FF]/20 rounded-xl p-3.5 flex items-center gap-2">
               <span className="text-[#0066FF] text-sm font-bold">{discount}% Rabatt</span>
-              <span className="text-[#0066FF]/60 text-xs">— ein starkes Angebot!</span>
+              <span className="text-[#0066FF]/40 text-xs">— ein starkes Angebot!</span>
             </div>
           )}
 
           {/* Min people slider */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-medium text-white/50">Mindestanzahl Personen</label>
-              <span className="text-[#0066FF] font-bold text-sm bg-[#0066FF]/10 px-2 py-0.5 rounded">{form.min_people}</span>
+              <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Mindestanzahl Personen</label>
+              <span className="text-gradient font-bold text-sm bg-[#0066FF]/10 px-2.5 py-0.5 rounded-lg">{form.min_people}</span>
             </div>
             <div className="px-1">
               <Slider
@@ -223,7 +223,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
                 className="w-full"
               />
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-white/30">
+            <div className="flex items-center gap-1.5 text-[11px] text-white/20">
               <Users className="w-3 h-3" />
               <span>Mindestens {form.min_people} Personen müssen innerhalb von 48h beitreten</span>
             </div>
@@ -231,7 +231,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
 
           {/* Category */}
           <div className="space-y-2">
-            <label className="text-xs font-medium text-white/50">Kategorie</label>
+            <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Kategorie</label>
             <div className="grid grid-cols-2 gap-2">
               {CATEGORIES.map(cat => (
                 <button
@@ -239,13 +239,13 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
                   type="button"
                   onClick={() => update('category', cat)}
                   className={cn(
-                    'py-2.5 px-3 rounded-lg text-sm font-medium transition-all border flex items-center justify-center gap-1.5',
+                    'py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-300 border flex items-center justify-center gap-2',
                     form.category === cat
-                      ? 'bg-[#0066FF] text-white border-[#0066FF]'
-                      : 'bg-[#0a0a0a] text-white/50 border-white/10 hover:border-white/20 hover:text-white/70'
+                      ? 'gradient-primary-subtle text-white border-[#0066FF]/30'
+                      : 'bg-white/[0.03] text-white/30 border-white/[0.06] hover:border-white/15 hover:text-white/50'
                   )}
                 >
-                  <span>{categoryEmojis[cat]}</span>
+                  <span>{categoryIcons[cat]}</span>
                   {cat}
                 </button>
               ))}
@@ -256,11 +256,11 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-[#0066FF] text-white py-3.5 rounded-xl font-bold text-sm hover:bg-[#0055DD] transition-colors disabled:opacity-60 mt-2"
+            className="w-full gradient-primary text-white py-3.5 rounded-xl font-bold text-sm glow-blue hover:opacity-90 transition-all disabled:opacity-50 mt-2"
           >
             {submitting ? (
               <span className="flex items-center justify-center gap-2">
-                <div className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
                 Wird erstellt...
               </span>
             ) : (

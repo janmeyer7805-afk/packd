@@ -19,52 +19,57 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-xl border-t border-white/5">
-      <div className="max-w-lg mx-auto flex items-center justify-around px-4 py-2 pb-safe">
-        {links.map(({ href, icon: Icon, label }) => {
-          const active = pathname === href;
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                'flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-200',
-                active
-                  ? 'text-[#0066FF]'
-                  : 'text-white/40 hover:text-white/70'
-              )}
-            >
-              {href === '/profile' && user && profile?.name ? (
-                <div className={cn(
-                  'w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 border',
-                  active ? 'border-[#0066FF]/50 bg-[#0066FF]/20' : 'border-white/10 bg-white/5'
-                )}>
-                  {profile.avatar_url ? (
-                    <img src={profile.avatar_url} alt="" className="w-full h-full rounded-full object-cover" />
-                  ) : (
-                    <span className={cn('text-xs font-bold', active ? 'text-[#0066FF]' : 'text-white/50')}>
-                      {profile.name.charAt(0).toUpperCase()}
-                    </span>
-                  )}
-                </div>
-              ) : href === '/create' ? (
-                <div className={cn(
-                  'w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200',
-                  active
-                    ? 'bg-[#0066FF] shadow-lg shadow-blue-500/30'
-                    : 'bg-[#0066FF]/80 hover:bg-[#0066FF]'
-                )}>
-                  <Icon className="w-5 h-5 text-white" />
-                </div>
-              ) : (
-                <Icon className="w-5 h-5" />
-              )}
-              {href !== '/create' && (
-                <span className="text-[10px] font-medium tracking-wide">{label}</span>
-              )}
-            </Link>
-          );
-        })}
+    <nav className="fixed bottom-4 left-4 right-4 z-50">
+      <div className="max-w-lg mx-auto">
+        <div className="glass-strong rounded-2xl px-2 py-2 flex items-center justify-around">
+          {links.map(({ href, icon: Icon, label }) => {
+            const active = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  'relative flex flex-col items-center gap-0.5 px-5 py-1.5 rounded-xl transition-all duration-300',
+                  active ? 'text-white' : 'text-white/30 hover:text-white/50'
+                )}
+              >
+                {/* Active indicator */}
+                {active && (
+                  <div className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-5 h-0.5 gradient-primary rounded-full" />
+                )}
+
+                {href === '/profile' && user && profile?.name ? (
+                  <div className={cn(
+                    'w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300',
+                    active ? 'gradient-primary-subtle border border-[#0066FF]/30' : 'bg-white/[0.04]'
+                  )}>
+                    {profile.avatar_url ? (
+                      <img src={profile.avatar_url} alt="" className="w-full h-full rounded-lg object-cover" />
+                    ) : (
+                      <span className={cn('text-[10px] font-bold', active ? 'text-gradient' : 'text-white/40')}>
+                        {profile.name.charAt(0).toUpperCase()}
+                      </span>
+                    )}
+                  </div>
+                ) : href === '/create' ? (
+                  <div className={cn(
+                    'w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 -my-1',
+                    active
+                      ? 'gradient-primary glow-blue'
+                      : 'gradient-primary opacity-70 hover:opacity-100'
+                  )}>
+                    <Icon className="w-4 h-4 text-white" />
+                  </div>
+                ) : (
+                  <Icon className={cn('w-5 h-5 transition-all duration-300', active && 'text-gradient')} />
+                )}
+                <span className={cn('text-[9px] font-medium', href === '/create' && 'sr-only')}>
+                  {label}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );

@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase, Deal } from '@/lib/supabase';
 import DealCard from '@/components/DealCard';
 import Navbar from '@/components/Navbar';
-import { LogOut, User, Package, Heart, ChevronRight, Settings } from 'lucide-react';
+import { LogOut, Package, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import Link from 'next/link';
@@ -63,7 +63,7 @@ export default function ProfilePage() {
   if (authLoading) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[#0066FF] border-t-transparent animate-spin" />
+        <div className="w-8 h-8 rounded-full border-2 border-[#0066FF]/30 border-t-[#0066FF] animate-spin" />
       </div>
     );
   }
@@ -71,9 +71,9 @@ export default function ProfilePage() {
   if (!user) return null;
 
   const stats = [
-    { label: 'Deals erstellt', value: myDeals.length },
-    { label: 'Deals beigetreten', value: joinedDeals.length },
-    { label: 'Erfolgreiche', value: [...myDeals, ...joinedDeals].filter(d => d.status === 'success').length },
+    { label: 'Erstellt', value: myDeals.length },
+    { label: 'Beigetreten', value: joinedDeals.length },
+    { label: 'Erfolgreich', value: [...myDeals, ...joinedDeals].filter(d => d.status === 'success').length },
   ];
 
   const displayDeals = activeTab === 'created' ? myDeals : joinedDeals;
@@ -81,70 +81,77 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-lg mx-auto px-4 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-40 glass-strong">
+        <div className="max-w-lg mx-auto px-5 py-4 flex items-center justify-between">
           <h1 className="text-lg font-bold text-white">Profil</h1>
           <button
             onClick={handleSignOut}
-            className="flex items-center gap-1.5 text-xs text-white/40 hover:text-red-400 transition-colors"
+            className="flex items-center gap-1.5 text-xs text-white/25 hover:text-red-400 transition-colors"
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut className="w-3.5 h-3.5" />
             Abmelden
           </button>
         </div>
       </header>
 
-      <main className="max-w-lg mx-auto px-4 pt-5 pb-28 space-y-6">
+      <main className="max-w-lg mx-auto px-5 pt-5 pb-28 space-y-6">
         {/* Profile card */}
-        <div className="bg-[#111] rounded-2xl p-5 border border-white/8">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-[#0066FF]/20 border-2 border-[#0066FF]/30 flex items-center justify-center flex-shrink-0">
-              <span className="text-2xl font-black text-[#0066FF]">
-                {profile?.name?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase() || '?'}
-              </span>
+        <div className="glass rounded-2xl p-5 relative overflow-hidden">
+          {/* Decorative gradient blob */}
+          <div className="absolute -top-10 -right-10 w-32 h-32 gradient-primary-subtle rounded-full blur-3xl opacity-50 pointer-events-none" />
+
+          <div className="relative flex items-center gap-4">
+            <div className="w-16 h-16 rounded-2xl gradient-primary-subtle border border-[#0066FF]/20 flex items-center justify-center flex-shrink-0">
+              {profile?.avatar_url ? (
+                <img src={profile.avatar_url} alt="" className="w-full h-full rounded-2xl object-cover" />
+              ) : (
+                <span className="text-2xl font-extrabold text-gradient">
+                  {profile?.name?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase() || '?'}
+                </span>
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-bold text-white text-lg truncate">{profile?.name || 'Anonym'}</p>
-              <p className="text-xs text-white/40 truncate">{user.email}</p>
+              <p className="text-xs text-white/25 truncate">{user.email}</p>
             </div>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/5">
+          <div className="grid grid-cols-3 gap-3 mt-5 pt-5 border-t border-white/[0.06]">
             {stats.map(stat => (
               <div key={stat.label} className="text-center">
-                <p className="text-xl font-black text-white">{stat.value}</p>
-                <p className="text-xs text-white/35 leading-tight mt-0.5">{stat.label}</p>
+                <p className="text-xl font-extrabold text-gradient">{stat.value}</p>
+                <p className="text-[10px] text-white/25 leading-tight mt-1 uppercase tracking-wider font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex bg-[#111]/50 rounded-xl p-1 border border-white/5">
+        <div className="flex bg-white/[0.04] rounded-xl p-1 border border-white/[0.06]">
           <button
             onClick={() => setActiveTab('created')}
             className={cn(
-              'flex-1 py-2 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5',
+              'flex-1 py-2.5 rounded-lg text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5',
               activeTab === 'created'
-                ? 'bg-[#0066FF] text-white shadow-lg shadow-blue-500/20'
-                : 'text-white/40 hover:text-white/60'
+                ? 'gradient-primary text-white glow-blue'
+                : 'text-white/25 hover:text-white/45'
             )}
           >
             <Package className="w-3.5 h-3.5" />
-            Meine Deals ({myDeals.length})
+            Meine ({myDeals.length})
           </button>
           <button
             onClick={() => setActiveTab('joined')}
             className={cn(
-              'flex-1 py-2 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5',
+              'flex-1 py-2.5 rounded-lg text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5',
               activeTab === 'joined'
-                ? 'bg-[#0066FF] text-white shadow-lg shadow-blue-500/20'
-                : 'text-white/40 hover:text-white/60'
+                ? 'gradient-primary text-white glow-blue'
+                : 'text-white/25 hover:text-white/45'
             )}
           >
             <Heart className="w-3.5 h-3.5" />
-            Beigetreten ({joinedDeals.length})
+            Joined ({joinedDeals.length})
           </button>
         </div>
 
@@ -152,30 +159,30 @@ export default function ProfilePage() {
         {loading ? (
           <div className="grid grid-cols-2 gap-3">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="rounded-2xl bg-[#111] border border-white/5 overflow-hidden animate-pulse">
-                <div className="aspect-[4/3] bg-white/5" />
-                <div className="p-4 space-y-2">
-                  <div className="h-3 bg-white/5 rounded w-3/4" />
-                  <div className="h-3 bg-white/5 rounded w-1/2" />
+              <div key={i} className="rounded-2xl glass overflow-hidden animate-shimmer">
+                <div className="aspect-[4/3] bg-white/[0.02]" />
+                <div className="p-4 space-y-2.5">
+                  <div className="h-3 bg-white/[0.04] rounded-lg w-3/4" />
+                  <div className="h-3 bg-white/[0.04] rounded-lg w-1/2" />
                 </div>
               </div>
             ))}
           </div>
         ) : displayDeals.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-14 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-[#111] flex items-center justify-center mb-3 border border-white/5">
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="w-14 h-14 rounded-2xl glass flex items-center justify-center mb-4">
               {activeTab === 'created' ? (
-                <Package className="w-6 h-6 text-white/20" />
+                <Package className="w-6 h-6 text-white/10" />
               ) : (
-                <Heart className="w-6 h-6 text-white/20" />
+                <Heart className="w-6 h-6 text-white/10" />
               )}
             </div>
-            <p className="text-white/40 font-medium text-sm">
+            <p className="text-white/25 font-medium text-sm">
               {activeTab === 'created' ? 'Noch keine Deals erstellt' : 'Noch keinem Deal beigetreten'}
             </p>
             <Link
               href={activeTab === 'created' ? '/create' : '/'}
-              className="mt-3 text-[#0066FF] text-xs font-medium hover:underline"
+              className="mt-3 text-[#0066FF]/60 text-xs font-medium hover:text-[#0066FF] transition-colors"
             >
               {activeTab === 'created' ? 'Ersten Deal erstellen' : 'Deals entdecken'}
             </Link>

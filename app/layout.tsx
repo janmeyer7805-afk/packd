@@ -4,7 +4,10 @@ import { Inter } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { Toaster } from '@/components/ui/sonner';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: 'Packd — Gemeinsam günstiger einkaufen',
@@ -18,10 +21,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" className="dark">
-      <body className={inter.className}>
+      <body className={`${inter.variable} font-sans antialiased`}>
         <AuthProvider>
           {children}
-          <Toaster />
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: 'rgba(17,17,17,0.95)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                color: '#fff',
+                backdropFilter: 'blur(20px)',
+                borderRadius: '0.75rem',
+                fontSize: '0.8rem',
+              },
+            }}
+          />
         </AuthProvider>
       </body>
     </html>

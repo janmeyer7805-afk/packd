@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Timer, Users, Tag, UserPlus } from 'lucide-react';
+import { Timer, Users, Tag, UserPlus, TrendingUp } from 'lucide-react';
 import { Deal } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
 import { formatTimeLeft, getDiscountPercent } from '@/lib/dealUtils';
@@ -16,10 +16,10 @@ interface DealCardProps {
 }
 
 const categoryColors: Record<string, string> = {
-  Supplements: 'bg-emerald-500/15 text-emerald-400',
-  Streetwear: 'bg-orange-500/15 text-orange-400',
-  Beauty: 'bg-pink-500/15 text-pink-400',
-  Sport: 'bg-blue-500/15 text-blue-400',
+  Supplements: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
+  Streetwear: 'bg-orange-500/15 text-orange-400 border-orange-500/20',
+  Beauty: 'bg-pink-500/15 text-pink-400 border-pink-500/20',
+  Sport: 'bg-blue-500/15 text-blue-400 border-blue-500/20',
 };
 
 export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
@@ -76,8 +76,12 @@ export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
   return (
     <Link href={`/deals/${deal.id}`} className="block group">
       <div className={cn(
-        'rounded-2xl overflow-hidden bg-[#111111] border transition-all duration-300 group-hover:border-white/15 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-black/40',
-        isSuccess ? 'border-[#0066FF]/40' : isFailed ? 'border-white/5 opacity-60' : 'border-white/8'
+        'rounded-2xl overflow-hidden glass transition-all duration-500',
+        'group-hover:shadow-2xl group-hover:shadow-[#0066FF]/5',
+        'group-hover:-translate-y-1 group-hover:border-white/10',
+        isSuccess && 'border-[#0066FF]/20',
+        isFailed && 'opacity-40',
+        !isSuccess && !isFailed && 'border-white/[0.06]'
       )}>
         {/* Image */}
         <div className="relative aspect-[4/3] overflow-hidden">
@@ -85,17 +89,20 @@ export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
             <img
               src={deal.photo_url}
               alt={deal.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] flex items-center justify-center">
-              <Tag className="w-10 h-10 text-white/10" />
+            <div className="w-full h-full bg-gradient-to-br from-white/[0.04] to-transparent flex items-center justify-center">
+              <Tag className="w-10 h-10 text-white/[0.06]" />
             </div>
           )}
 
+          {/* Gradient overlay on image bottom */}
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0a0a0a]/80 to-transparent pointer-events-none" />
+
           {/* Discount badge */}
           <div className="absolute top-3 left-3">
-            <span className="bg-[#0066FF] text-white text-xs font-bold px-2.5 py-1 rounded-lg">
+            <span className="gradient-primary text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-lg shadow-[#0066FF]/30">
               -{discount}%
             </span>
           </div>
@@ -103,56 +110,60 @@ export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
           {/* Status badge */}
           {isSuccess && (
             <div className="absolute top-3 right-3">
-              <span className="bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-lg">
-                Deal aktiv!
+              <span className="bg-emerald-500 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-lg shadow-emerald-500/30 flex items-center gap-1">
+                <TrendingUp className="w-3 h-3" />
+                Aktiv
               </span>
             </div>
           )}
 
-          {/* Category */}
+          {/* Category pill */}
           <div className="absolute bottom-3 right-3">
-            <span className={cn('text-xs font-medium px-2 py-1 rounded-lg backdrop-blur-sm', categoryColors[deal.category] || 'bg-white/10 text-white/60')}>
+            <span className={cn(
+              'text-[10px] font-semibold px-2.5 py-1 rounded-lg backdrop-blur-md border',
+              categoryColors[deal.category] || 'bg-white/10 text-white/60 border-white/10'
+            )}>
               {deal.category}
             </span>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-4 space-y-3">
-          <h3 className="font-semibold text-white text-sm leading-tight line-clamp-2 group-hover:text-white">
+        <div className="p-3.5 space-y-2.5">
+          <h3 className="font-semibold text-white text-[13px] leading-snug line-clamp-2">
             {deal.title}
           </h3>
 
           {/* Prices */}
           <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold text-[#0066FF]">
+            <span className="text-base font-bold text-gradient">
               {deal.deal_price.toFixed(2).replace('.', ',')} €
             </span>
-            <span className="text-sm text-white/35 line-through">
+            <span className="text-xs text-white/25 line-through">
               {deal.original_price.toFixed(2).replace('.', ',')} €
             </span>
           </div>
 
-          {/* Progress bar */}
+          {/* Progress */}
           <div className="space-y-1.5">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-white/50 flex items-center gap-1">
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="text-white/40 flex items-center gap-1">
                 <Users className="w-3 h-3" />
-                {currentCount}/{deal.min_people} Personen
+                {currentCount}/{deal.min_people}
               </span>
               <span className={cn(
                 'flex items-center gap-1',
-                isFailed ? 'text-red-400' : 'text-white/50'
+                isFailed ? 'text-red-400/60' : 'text-white/40'
               )}>
                 <Timer className="w-3 h-3" />
                 {isFailed ? 'Abgelaufen' : timeLeft}
               </span>
             </div>
-            <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
+            <div className="h-1 bg-white/[0.06] rounded-full overflow-hidden">
               <div
                 className={cn(
-                  'h-full rounded-full transition-all duration-700',
-                  isSuccess ? 'bg-emerald-500' : 'bg-[#0066FF]'
+                  'h-full rounded-full transition-all duration-700 ease-out',
+                  isSuccess ? 'bg-emerald-500' : 'gradient-primary'
                 )}
                 style={{ width: `${progress}%` }}
               />
@@ -165,19 +176,19 @@ export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
               onClick={handleJoin}
               disabled={joining}
               className={cn(
-                'w-full py-2 rounded-lg text-xs font-bold transition-all duration-200 flex items-center justify-center gap-1.5',
+                'w-full py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5',
                 hasJoined
-                  ? 'bg-white/10 text-white/70 border border-white/10 hover:bg-white/15'
-                  : 'bg-[#0066FF] text-white hover:bg-[#0055DD]',
-                joining && 'opacity-60'
+                  ? 'glass text-white/60 hover:text-white/80'
+                  : 'gradient-primary text-white glow-blue hover:opacity-90',
+                joining && 'opacity-50'
               )}
             >
               {joining ? (
-                <div className="w-3 h-3 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                <div className="w-3 h-3 rounded-full border-2 border-white/30 border-t-white animate-spin" />
               ) : (
                 <>
                   <UserPlus className="w-3 h-3" />
-                  {hasJoined ? 'Beigetreten' : 'Deal beitreten'}
+                  {hasJoined ? 'Beigetreten' : 'Beitreten'}
                 </>
               )}
             </button>
