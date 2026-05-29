@@ -41,7 +41,7 @@ export default function Navbar() {
                 {href === '/profile' && user && profile?.name ? (
                   <div className={cn(
                     'w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300',
-                    active ? 'gradient-primary-subtle border border-[#0066FF]/30' : 'bg-white/[0.04]'
+                    active ? 'gradient-primary-subtle border border-emerald-500/30' : 'bg-white/[0.04]'
                   )}>
                     {profile.avatar_url ? (
                       <img src={profile.avatar_url} alt="" className="w-full h-full rounded-lg object-cover" />
@@ -55,7 +55,7 @@ export default function Navbar() {
                   <div className={cn(
                     'w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 -my-1',
                     active
-                      ? 'gradient-primary glow-blue'
+                      ? 'gradient-primary glow'
                       : 'gradient-primary opacity-70 hover:opacity-100'
                   )}>
                     <Icon className="w-4 h-4 text-white" />

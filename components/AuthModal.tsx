@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Eye, EyeOff, Zap } from 'lucide-react';
+import { Eye, EyeOff, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
@@ -45,12 +45,10 @@ export default function AuthModal({ open, onOpenChange }: AuthModalProps) {
       if (error) {
         toast.error(error.message === 'User already registered' ? 'E-Mail bereits registriert' : error.message);
       } else if (data.user && !data.session) {
-        // Email confirmation required — tell the user
         toast.success('Registrierung erfolgreich! Bitte bestätige deine E-Mail.');
         reset();
         onOpenChange(false);
       } else {
-        // Auto-confirmed — logged in immediately
         toast.success('Konto erstellt! Willkommen bei Packd.');
         reset();
         onOpenChange(false);
@@ -74,28 +72,28 @@ export default function AuthModal({ open, onOpenChange }: AuthModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={(v) => { if (!v) reset(); onOpenChange(v); }}>
-      <DialogContent className="bg-[#111] border-white/10 text-white sm:max-w-sm">
+      <DialogContent className="bg-[#0a0a0a] border-white/[0.08] text-white sm:max-w-sm backdrop-blur-2xl">
         <DialogHeader className="text-center">
           <div className="flex justify-center mb-3">
-            <div className="w-12 h-12 rounded-xl bg-[#0066FF]/20 border border-[#0066FF]/30 flex items-center justify-center">
-              <Zap className="w-6 h-6 text-[#0066FF]" />
+            <div className="w-12 h-12 rounded-xl gradient-primary glow flex items-center justify-center">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
           </div>
           <DialogTitle className="text-xl font-bold">
-            Pack<span className="text-[#0066FF]">d</span>
+            Pack<span className="text-gradient">d</span>
           </DialogTitle>
-          <p className="text-xs text-white/40 mt-1">Gemeinsam günstiger einkaufen</p>
+          <p className="text-xs text-white/25 mt-1">Gemeinsam günstiger einkaufen</p>
         </DialogHeader>
 
         {/* Mode toggle */}
-        <div className="flex bg-[#0a0a0a] rounded-lg p-1 mt-4">
+        <div className="flex bg-white/[0.04] rounded-lg p-1 mt-4 border border-white/[0.06]">
           <button
             onClick={() => setMode('login')}
             className={cn(
-              'flex-1 py-2 rounded-md text-sm font-semibold transition-all',
+              'flex-1 py-2 rounded-md text-sm font-semibold transition-all duration-300',
               mode === 'login'
-                ? 'bg-[#0066FF] text-white'
-                : 'text-white/40 hover:text-white/60'
+                ? 'gradient-primary text-white glow'
+                : 'text-white/25 hover:text-white/45'
             )}
           >
             Anmelden
@@ -103,10 +101,10 @@ export default function AuthModal({ open, onOpenChange }: AuthModalProps) {
           <button
             onClick={() => setMode('signup')}
             className={cn(
-              'flex-1 py-2 rounded-md text-sm font-semibold transition-all',
+              'flex-1 py-2 rounded-md text-sm font-semibold transition-all duration-300',
               mode === 'signup'
-                ? 'bg-[#0066FF] text-white'
-                : 'text-white/40 hover:text-white/60'
+                ? 'gradient-primary text-white glow'
+                : 'text-white/25 hover:text-white/45'
             )}
           >
             Registrieren
@@ -116,32 +114,32 @@ export default function AuthModal({ open, onOpenChange }: AuthModalProps) {
         <form onSubmit={handleSubmit} className="space-y-3 mt-4">
           {mode === 'signup' && (
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-white/50">Name</label>
+              <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Name</label>
               <input
                 type="text"
                 value={form.name}
                 onChange={e => update('name', e.target.value)}
                 placeholder="Dein Name"
                 required
-                className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#0066FF]/60 transition-colors"
+                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 transition-all duration-300"
               />
             </div>
           )}
 
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-white/50">E-Mail</label>
+            <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">E-Mail</label>
             <input
               type="email"
               value={form.email}
               onChange={e => update('email', e.target.value)}
               placeholder="deine@email.de"
               required
-              className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#0066FF]/60 transition-colors"
+              className="w-full bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 transition-all duration-300"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-white/50">Passwort</label>
+            <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Passwort</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -150,12 +148,12 @@ export default function AuthModal({ open, onOpenChange }: AuthModalProps) {
                 placeholder="••••••••"
                 required
                 minLength={6}
-                className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-3 pr-10 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#0066FF]/60 transition-colors"
+                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-lg px-3 pr-10 py-2.5 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 transition-all duration-300"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(v => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/15 hover:text-white/35 transition-colors"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -165,22 +163,22 @@ export default function AuthModal({ open, onOpenChange }: AuthModalProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#0066FF] text-white py-3 rounded-xl font-bold text-sm hover:bg-[#0055DD] transition-colors disabled:opacity-60 mt-2"
+            className="w-full gradient-primary text-white py-3 rounded-xl font-bold text-sm glow hover:opacity-90 transition-all disabled:opacity-50 mt-2"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
-                <div className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
                 Bitte warten...
               </span>
             ) : mode === 'login' ? 'Anmelden' : 'Konto erstellen'}
           </button>
         </form>
 
-        <p className="text-center text-xs text-white/30 mt-4">
+        <p className="text-center text-xs text-white/15 mt-4">
           {mode === 'login' ? (
-            <>Noch kein Konto? <button onClick={() => setMode('signup')} className="text-[#0066FF] hover:underline">Registrieren</button></>
+            <>Noch kein Konto? <button onClick={() => setMode('signup')} className="text-emerald-400/70 hover:text-emerald-400 transition-colors">Registrieren</button></>
           ) : (
-            <>Bereits registriert? <button onClick={() => setMode('login')} className="text-[#0066FF] hover:underline">Anmelden</button></>
+            <>Bereits registriert? <button onClick={() => setMode('login')} className="text-emerald-400/70 hover:text-emerald-400 transition-colors">Anmelden</button></>
           )}
         </p>
       </DialogContent>

@@ -10,22 +10,22 @@
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 12%;
     --muted-foreground: 0 0% 55%;
-    --accent: 216 100% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 43 96% 56%;
+    --accent-foreground: 0 0% 9%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 14%;
     --input: 0 0% 14%;
-    --ring: 216 100% 50%;
+    --ring: 160 84% 39%;
     --radius: 0.75rem;
-    --chart-1: 216 100% 50%;
-    --chart-2: 160 60% 45%;
+    --chart-1: 160 84% 39%;
+    --chart-2: 43 96% 56%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
@@ -71,22 +71,43 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
   .gradient-primary {
-    background: linear-gradient(135deg, #0066FF 0%, #3D5AFF 50%, #00D4FF 100%);
+    background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%);
+  }
+  .gradient-primary-bright {
+    background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #059669 100%);
   }
   .gradient-primary-subtle {
-    background: linear-gradient(135deg, rgba(0,102,255,0.15) 0%, rgba(0,212,255,0.08) 100%);
+    background: linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(5,150,105,0.06) 100%);
+  }
+  .gradient-accent {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  }
+  .gradient-accent-subtle {
+    background: linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(217,119,6,0.06) 100%);
+  }
+  .gradient-hero {
+    background: linear-gradient(135deg, #10B981 0%, #059669 40%, #F59E0B 100%);
   }
   .text-gradient {
-    background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+    background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #059669 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .glow-blue {
-    box-shadow: 0 0 20px rgba(0, 102, 255, 0.15), 0 0 60px rgba(0, 102, 255, 0.05);
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .glow-blue-strong {
-    box-shadow: 0 0 30px rgba(0, 102, 255, 0.25), 0 0 80px rgba(0, 102, 255, 0.1);
+  .glow {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.15), 0 0 60px rgba(16, 185, 129, 0.05);
+  }
+  .glow-strong {
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.25), 0 0 80px rgba(16, 185, 129, 0.1);
+  }
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.2), 0 0 60px rgba(245, 158, 11, 0.06);
   }
   .scrollbar-hide {
     -ms-overflow-style: none;
@@ -115,7 +136,7 @@
   background: linear-gradient(
     90deg,
     rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.05) 50%,
+    rgba(255,255,255,0.04) 50%,
     rgba(255,255,255,0) 100%
   );
   background-size: 200% 100%;

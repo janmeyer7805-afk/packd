@@ -65,7 +65,7 @@ export default function HomePage() {
           {/* Top bar */}
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center glow-blue">
+              <div className="w-9 h-9 rounded-xl gradient-primary flex items-center justify-center glow">
                 <Sparkles className="w-4.5 h-4.5 text-white" />
               </div>
               <div>
@@ -80,13 +80,13 @@ export default function HomePage() {
                 <>
                   <button
                     onClick={() => setCreateModalOpen(true)}
-                    className="h-9 px-4 rounded-xl gradient-primary text-white text-xs font-semibold flex items-center gap-1.5 glow-blue hover:opacity-90 transition-opacity"
+                    className="h-9 px-4 rounded-xl gradient-primary text-white text-xs font-semibold flex items-center gap-1.5 glow hover:opacity-90 transition-opacity"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Neu
                   </button>
                   <Link href="/profile">
-                    <div className="w-9 h-9 rounded-xl glass flex items-center justify-center hover:border-[#0066FF]/30 transition-colors">
+                    <div className="w-9 h-9 rounded-xl glass flex items-center justify-center hover:border-emerald-500/30 transition-colors">
                       {profile?.avatar_url ? (
                         <img src={profile.avatar_url} alt="" className="w-full h-full rounded-xl object-cover" />
                       ) : (
@@ -116,7 +116,7 @@ export default function HomePage() {
               placeholder="Deals durchsuchen..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+              className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
             />
           </div>
 
@@ -127,7 +127,7 @@ export default function HomePage() {
               className={cn(
                 'flex-1 py-2 rounded-lg text-xs font-semibold transition-all duration-300',
                 activeTab === 'open'
-                  ? 'gradient-primary text-white glow-blue'
+                  ? 'gradient-primary text-white glow'
                   : 'text-white/30 hover:text-white/50'
               )}
             >
@@ -138,7 +138,7 @@ export default function HomePage() {
               className={cn(
                 'flex-1 py-2 rounded-lg text-xs font-semibold transition-all duration-300',
                 activeTab === 'success'
-                  ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25'
+                  ? 'gradient-accent text-black shadow-lg shadow-amber-500/25'
                   : 'text-white/30 hover:text-white/50'
               )}
             >
@@ -156,7 +156,7 @@ export default function HomePage() {
                 className={cn(
                   'flex-shrink-0 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-300',
                   activeCategory === cat.value
-                    ? 'gradient-primary-subtle text-white border border-[#0066FF]/30'
+                    ? 'gradient-primary-subtle text-emerald-300 border border-emerald-500/30'
                     : 'text-white/30 hover:text-white/50 border border-transparent'
                 )}
               >
@@ -194,7 +194,7 @@ export default function HomePage() {
             {user && (
               <button
                 onClick={() => setCreateModalOpen(true)}
-                className="mt-5 h-10 px-6 rounded-xl gradient-primary text-white text-sm font-semibold glow-blue hover:opacity-90 transition-opacity"
+                className="mt-5 h-10 px-6 rounded-xl gradient-primary text-white text-sm font-semibold glow hover:opacity-90 transition-opacity"
               >
                 Deal erstellen
               </button>

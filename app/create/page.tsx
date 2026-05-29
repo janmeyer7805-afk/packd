@@ -85,7 +85,6 @@ export default function CreateDealPage() {
       return;
     }
 
-    // Auto-join the creator (trigger increments current_count)
     if (data) {
       await supabase.from('deal_joins').insert({ deal_id: data.id, user_id: user.id });
       toast.success('Deal erstellt!');
@@ -101,7 +100,7 @@ export default function CreateDealPage() {
         </div>
         <p className="text-white font-semibold">Anmelden erforderlich</p>
         <p className="text-white/25 text-sm text-center">Du musst eingeloggt sein, um einen Deal zu erstellen</p>
-        <Link href="/auth" className="mt-2 gradient-primary text-white px-6 py-3 rounded-xl font-semibold text-sm glow-blue hover:opacity-90 transition-all">
+        <Link href="/auth" className="mt-2 gradient-primary text-white px-6 py-3 rounded-xl font-semibold text-sm glow hover:opacity-90 transition-all">
           Jetzt anmelden
         </Link>
         <Navbar />
@@ -134,7 +133,7 @@ export default function CreateDealPage() {
               value={form.title}
               onChange={e => update('title', e.target.value)}
               placeholder="z.B. Whey Protein 2kg – Vanilla"
-              className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+              className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
             />
           </div>
 
@@ -148,7 +147,7 @@ export default function CreateDealPage() {
                 value={form.photo_url}
                 onChange={e => update('photo_url', e.target.value)}
                 placeholder="https://..."
-                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
               />
             </div>
             {form.photo_url && (
@@ -171,7 +170,7 @@ export default function CreateDealPage() {
                   value={form.original_price}
                   onChange={e => update('original_price', e.target.value)}
                   placeholder="49,99"
-                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
                 />
               </div>
             </div>
@@ -186,7 +185,7 @@ export default function CreateDealPage() {
                   value={form.deal_price}
                   onChange={e => update('deal_price', e.target.value)}
                   placeholder="34,99"
-                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
                 />
               </div>
             </div>
@@ -194,9 +193,9 @@ export default function CreateDealPage() {
 
           {/* Discount preview */}
           {discount > 0 && (
-            <div className="gradient-primary-subtle border border-[#0066FF]/20 rounded-xl p-3.5 flex items-center gap-2">
-              <span className="text-[#0066FF] text-sm font-bold">{discount}% Rabatt</span>
-              <span className="text-[#0066FF]/40 text-xs">— ein starkes Angebot!</span>
+            <div className="gradient-accent-subtle border border-amber-500/20 rounded-xl p-3.5 flex items-center gap-2">
+              <span className="text-amber-400 text-sm font-bold">{discount}% Rabatt</span>
+              <span className="text-amber-400/40 text-xs">— ein starkes Angebot!</span>
             </div>
           )}
 
@@ -215,7 +214,7 @@ export default function CreateDealPage() {
                   className={cn(
                     'flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all duration-300 border',
                     form.min_people === n
-                      ? 'gradient-primary-subtle text-white border-[#0066FF]/30'
+                      ? 'gradient-primary-subtle text-emerald-300 border-emerald-500/30'
                       : 'bg-white/[0.03] text-white/25 border-white/[0.06] hover:border-white/15 hover:text-white/40'
                   )}
                 >
@@ -241,7 +240,7 @@ export default function CreateDealPage() {
                   className={cn(
                     'py-3 px-4 rounded-xl text-sm font-medium transition-all duration-300 border flex items-center gap-2',
                     form.category === cat
-                      ? 'gradient-primary-subtle text-white border-[#0066FF]/30'
+                      ? 'gradient-primary-subtle text-emerald-300 border-emerald-500/30'
                       : 'bg-white/[0.03] text-white/25 border-white/[0.06] hover:border-white/15 hover:text-white/40'
                   )}
                 >
@@ -256,7 +255,7 @@ export default function CreateDealPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full gradient-primary text-white py-4 rounded-2xl font-bold text-base glow-blue-strong hover:opacity-90 transition-all disabled:opacity-50 mt-2"
+            className="w-full gradient-primary text-white py-4 rounded-2xl font-bold text-base glow-strong hover:opacity-90 transition-all disabled:opacity-50 mt-2"
           >
             {submitting ? (
               <span className="flex items-center justify-center gap-2">

@@ -15,7 +15,7 @@ const categoryColors: Record<string, string> = {
   Supplements: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
   Streetwear: 'bg-orange-500/15 text-orange-400 border-orange-500/20',
   Beauty: 'bg-pink-500/15 text-pink-400 border-pink-500/20',
-  Sport: 'bg-blue-500/15 text-blue-400 border-blue-500/20',
+  Sport: 'bg-sky-500/15 text-sky-400 border-sky-500/20',
 };
 
 export default function DealDetailPage() {
@@ -109,7 +109,7 @@ export default function DealDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[#0066FF] border-t-transparent animate-spin" />
+        <div className="w-8 h-8 rounded-full border-2 border-emerald-500/30 border-t-emerald-500 animate-spin" />
       </div>
     );
   }
@@ -118,7 +118,7 @@ export default function DealDetailPage() {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center gap-4">
         <p className="text-white/50">Deal nicht gefunden</p>
-        <Link href="/" className="text-[#0066FF] text-sm font-medium">Zurück zum Feed</Link>
+        <Link href="/" className="text-emerald-400/70 text-sm font-medium hover:text-emerald-400 transition-colors">Zurück zum Feed</Link>
       </div>
     );
   }
@@ -139,8 +139,8 @@ export default function DealDetailPage() {
             {deal.photo_url ? (
               <img src={deal.photo_url} alt={deal.title} className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] flex items-center justify-center">
-                <Tag className="w-16 h-16 text-white/10" />
+              <div className="w-full h-full bg-gradient-to-br from-white/[0.04] to-transparent flex items-center justify-center">
+                <Tag className="w-16 h-16 text-white/[0.06]" />
               </div>
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
@@ -164,14 +164,14 @@ export default function DealDetailPage() {
 
           {/* Discount badge */}
           <div className="absolute bottom-4 left-4">
-            <span className="bg-[#0066FF] text-white text-sm font-black px-3 py-1.5 rounded-xl">
+            <span className="gradient-accent text-black text-sm font-black px-3 py-1.5 rounded-xl shadow-lg shadow-amber-500/20">
               -{discount}%
             </span>
           </div>
         </div>
 
         {/* Content */}
-        <div className="px-4 pb-32 space-y-5 -mt-2">
+        <div className="px-5 pb-32 space-y-5 -mt-2">
           {/* Title & category */}
           <div className="space-y-2">
             <span className={cn('inline-flex text-xs font-medium px-2.5 py-1 rounded-lg border', categoryColors[deal.category] || 'bg-white/10 text-white/60 border-white/10')}>
@@ -181,12 +181,12 @@ export default function DealDetailPage() {
           </div>
 
           {/* Price block */}
-          <div className="bg-[#111] rounded-2xl p-4 border border-white/8 space-y-1">
+          <div className="glass rounded-2xl p-4 space-y-1">
             <div className="flex items-baseline gap-3">
               <span className="text-3xl font-black text-white">
                 {deal.deal_price.toFixed(2).replace('.', ',')} €
               </span>
-              <span className="text-lg text-white/35 line-through">
+              <span className="text-lg text-white/25 line-through">
                 {deal.original_price.toFixed(2).replace('.', ',')} €
               </span>
             </div>
@@ -215,7 +215,7 @@ export default function DealDetailPage() {
           )}
 
           {/* Progress */}
-          <div className="bg-[#111] rounded-2xl p-4 border border-white/8 space-y-3">
+          <div className="glass rounded-2xl p-4 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-white">Gruppenfortschritt</span>
               {!isFailed && (
@@ -227,23 +227,23 @@ export default function DealDetailPage() {
             </div>
 
             <div className="space-y-1.5">
-              <div className="flex justify-between text-xs text-white/50">
+              <div className="flex justify-between text-xs text-white/40">
                 <span className="flex items-center gap-1">
                   <Users className="w-3 h-3" />
                   {deal.current_count} von {deal.min_people} Personen
                 </span>
                 <span>{Math.round(progress)}%</span>
               </div>
-              <div className="h-2 bg-white/8 rounded-full overflow-hidden">
+              <div className="h-2 bg-white/[0.06] rounded-full overflow-hidden">
                 <div
                   className={cn(
                     'h-full rounded-full transition-all duration-700',
-                    isSuccess ? 'bg-emerald-500' : 'bg-[#0066FF]'
+                    isSuccess ? 'bg-emerald-500' : 'gradient-primary'
                   )}
                   style={{ width: `${progress}%` }}
                 />
               </div>
-              <p className="text-xs text-white/30">
+              <p className="text-xs text-white/25">
                 Noch {Math.max(deal.min_people - deal.current_count, 0)} Person(en) fehlen
               </p>
             </div>
@@ -252,20 +252,20 @@ export default function DealDetailPage() {
           {/* Participants */}
           {joins.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-sm font-semibold text-white/60 uppercase tracking-wider">
+              <h3 className="text-sm font-semibold text-white/40 uppercase tracking-wider">
                 Teilnehmer ({joins.length})
               </h3>
               <div className="space-y-2">
                 {joins.map(join => (
-                  <div key={join.id} className="flex items-center gap-3 bg-[#111] rounded-xl p-3 border border-white/5">
-                    <div className="w-8 h-8 rounded-full bg-[#0066FF]/20 border border-[#0066FF]/30 flex items-center justify-center flex-shrink-0">
-                      <span className="text-xs font-bold text-[#0066FF]">
+                  <div key={join.id} className="flex items-center gap-3 glass rounded-xl p-3">
+                    <div className="w-8 h-8 rounded-full gradient-primary-subtle border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                      <span className="text-xs font-bold text-gradient">
                         {join.profiles?.name?.charAt(0)?.toUpperCase() || '?'}
                       </span>
                     </div>
-                    <span className="text-sm text-white/70 font-medium">{join.profiles?.name || 'Anonym'}</span>
+                    <span className="text-sm text-white/60 font-medium">{join.profiles?.name || 'Anonym'}</span>
                     {join.user_id === deal.created_by && (
-                      <span className="ml-auto text-xs text-[#0066FF] font-medium bg-[#0066FF]/10 px-2 py-0.5 rounded-lg">
+                      <span className="ml-auto text-xs text-amber-400 font-medium gradient-accent-subtle border border-amber-500/20 px-2 py-0.5 rounded-lg">
                         Ersteller
                       </span>
                     )}
@@ -279,7 +279,7 @@ export default function DealDetailPage() {
 
       {/* Sticky join button */}
       {!isFailed && (
-        <div className="fixed bottom-20 left-0 right-0 px-4 z-40">
+        <div className="fixed bottom-20 left-0 right-0 px-5 z-40">
           <div className="max-w-lg mx-auto">
             <button
               onClick={handleJoin}
@@ -287,15 +287,15 @@ export default function DealDetailPage() {
               className={cn(
                 'w-full py-4 rounded-2xl font-bold text-base transition-all duration-200 disabled:opacity-60',
                 hasJoined
-                  ? 'bg-white/8 text-white/60 border border-white/10 hover:bg-white/12'
+                  ? 'glass text-white/60 hover:text-white/80'
                   : isSuccess
                     ? 'bg-emerald-500 text-white hover:bg-emerald-400 shadow-lg shadow-emerald-500/25'
-                    : 'bg-[#0066FF] text-white hover:bg-[#0055DD] shadow-lg shadow-blue-500/25'
+                    : 'gradient-primary text-white glow-strong hover:opacity-90'
               )}
             >
               {joining ? (
                 <span className="flex items-center justify-center gap-2">
-                  <div className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                  <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
                   Bitte warten...
                 </span>
               ) : hasJoined ? (

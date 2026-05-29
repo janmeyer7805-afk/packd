@@ -99,7 +99,6 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
       return;
     }
 
-    // Auto-join the creator (trigger increments current_count)
     if (data) {
       await supabase.from('deal_joins').insert({ deal_id: data.id, user_id: userId });
       toast.success('Deal erstellt!');
@@ -136,7 +135,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
               value={form.title}
               onChange={e => update('title', e.target.value)}
               placeholder="z.B. Whey Protein 2kg – Vanilla"
-              className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+              className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
             />
           </div>
 
@@ -150,7 +149,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
                 value={form.photo_url}
                 onChange={e => update('photo_url', e.target.value)}
                 placeholder="https://..."
-                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
               />
             </div>
             {form.photo_url && (
@@ -178,7 +177,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
                   value={form.original_price}
                   onChange={e => update('original_price', e.target.value)}
                   placeholder="49,99"
-                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
                 />
               </div>
             </div>
@@ -193,7 +192,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
                   value={form.deal_price}
                   onChange={e => update('deal_price', e.target.value)}
                   placeholder="34,99"
-                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
                 />
               </div>
             </div>
@@ -201,9 +200,9 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
 
           {/* Discount preview */}
           {discount > 0 && (
-            <div className="gradient-primary-subtle border border-[#0066FF]/20 rounded-xl p-3.5 flex items-center gap-2">
-              <span className="text-[#0066FF] text-sm font-bold">{discount}% Rabatt</span>
-              <span className="text-[#0066FF]/40 text-xs">— ein starkes Angebot!</span>
+            <div className="gradient-accent-subtle border border-amber-500/20 rounded-xl p-3.5 flex items-center gap-2">
+              <span className="text-amber-400 text-sm font-bold">{discount}% Rabatt</span>
+              <span className="text-amber-400/40 text-xs">— ein starkes Angebot!</span>
             </div>
           )}
 
@@ -211,7 +210,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <label className="text-[11px] font-semibold text-white/30 uppercase tracking-widest">Mindestanzahl Personen</label>
-              <span className="text-gradient font-bold text-sm bg-[#0066FF]/10 px-2.5 py-0.5 rounded-lg">{form.min_people}</span>
+              <span className="text-gradient font-bold text-sm bg-emerald-500/10 px-2.5 py-0.5 rounded-lg">{form.min_people}</span>
             </div>
             <div className="px-1">
               <Slider
@@ -241,7 +240,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
                   className={cn(
                     'py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-300 border flex items-center justify-center gap-2',
                     form.category === cat
-                      ? 'gradient-primary-subtle text-white border-[#0066FF]/30'
+                      ? 'gradient-primary-subtle text-emerald-300 border-emerald-500/30'
                       : 'bg-white/[0.03] text-white/30 border-white/[0.06] hover:border-white/15 hover:text-white/50'
                   )}
                 >
@@ -256,7 +255,7 @@ export default function CreateDealModal({ open, onOpenChange, userId, onSuccess 
           <button
             type="submit"
             disabled={submitting}
-            className="w-full gradient-primary text-white py-3.5 rounded-xl font-bold text-sm glow-blue hover:opacity-90 transition-all disabled:opacity-50 mt-2"
+            className="w-full gradient-primary text-white py-3.5 rounded-xl font-bold text-sm glow hover:opacity-90 transition-all disabled:opacity-50 mt-2"
           >
             {submitting ? (
               <span className="flex items-center justify-center gap-2">

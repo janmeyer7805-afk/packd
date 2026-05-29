@@ -63,7 +63,7 @@ export default function ProfilePage() {
   if (authLoading) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[#0066FF]/30 border-t-[#0066FF] animate-spin" />
+        <div className="w-8 h-8 rounded-full border-2 border-emerald-500/30 border-t-emerald-500 animate-spin" />
       </div>
     );
   }
@@ -101,7 +101,7 @@ export default function ProfilePage() {
           <div className="absolute -top-10 -right-10 w-32 h-32 gradient-primary-subtle rounded-full blur-3xl opacity-50 pointer-events-none" />
 
           <div className="relative flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl gradient-primary-subtle border border-[#0066FF]/20 flex items-center justify-center flex-shrink-0">
+            <div className="w-16 h-16 rounded-2xl gradient-primary-subtle border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
               {profile?.avatar_url ? (
                 <img src={profile.avatar_url} alt="" className="w-full h-full rounded-2xl object-cover" />
               ) : (
@@ -134,7 +134,7 @@ export default function ProfilePage() {
             className={cn(
               'flex-1 py-2.5 rounded-lg text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5',
               activeTab === 'created'
-                ? 'gradient-primary text-white glow-blue'
+                ? 'gradient-primary text-white glow'
                 : 'text-white/25 hover:text-white/45'
             )}
           >
@@ -146,7 +146,7 @@ export default function ProfilePage() {
             className={cn(
               'flex-1 py-2.5 rounded-lg text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5',
               activeTab === 'joined'
-                ? 'gradient-primary text-white glow-blue'
+                ? 'gradient-primary text-white glow'
                 : 'text-white/25 hover:text-white/45'
             )}
           >
@@ -182,7 +182,7 @@ export default function ProfilePage() {
             </p>
             <Link
               href={activeTab === 'created' ? '/create' : '/'}
-              className="mt-3 text-[#0066FF]/60 text-xs font-medium hover:text-[#0066FF] transition-colors"
+              className="mt-3 text-emerald-400/60 text-xs font-medium hover:text-emerald-400 transition-colors"
             >
               {activeTab === 'created' ? 'Ersten Deal erstellen' : 'Deals entdecken'}
             </Link>

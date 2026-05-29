@@ -19,7 +19,7 @@ const categoryColors: Record<string, string> = {
   Supplements: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
   Streetwear: 'bg-orange-500/15 text-orange-400 border-orange-500/20',
   Beauty: 'bg-pink-500/15 text-pink-400 border-pink-500/20',
-  Sport: 'bg-blue-500/15 text-blue-400 border-blue-500/20',
+  Sport: 'bg-sky-500/15 text-sky-400 border-sky-500/20',
 };
 
 export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
@@ -77,9 +77,9 @@ export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
     <Link href={`/deals/${deal.id}`} className="block group">
       <div className={cn(
         'rounded-2xl overflow-hidden glass transition-all duration-500',
-        'group-hover:shadow-2xl group-hover:shadow-[#0066FF]/5',
+        'group-hover:shadow-2xl group-hover:shadow-emerald-500/5',
         'group-hover:-translate-y-1 group-hover:border-white/10',
-        isSuccess && 'border-[#0066FF]/20',
+        isSuccess && 'border-emerald-500/20',
         isFailed && 'opacity-40',
         !isSuccess && !isFailed && 'border-white/[0.06]'
       )}>
@@ -102,7 +102,7 @@ export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
 
           {/* Discount badge */}
           <div className="absolute top-3 left-3">
-            <span className="gradient-primary text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-lg shadow-[#0066FF]/30">
+            <span className="gradient-accent text-black text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-lg shadow-amber-500/20">
               -{discount}%
             </span>
           </div>
@@ -179,7 +179,7 @@ export default function DealCard({ deal, userId, onJoin }: DealCardProps) {
                 'w-full py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5',
                 hasJoined
                   ? 'glass text-white/60 hover:text-white/80'
-                  : 'gradient-primary text-white glow-blue hover:opacity-90',
+                  : 'gradient-primary text-white glow hover:opacity-90',
                 joining && 'opacity-50'
               )}
             >

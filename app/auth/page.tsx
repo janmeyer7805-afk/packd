@@ -73,7 +73,7 @@ export default function AuthPage() {
         <div className="w-full max-w-sm">
           {/* Logo */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl gradient-primary glow-blue-strong mb-5">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl gradient-primary glow-strong mb-5">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-3xl font-extrabold text-white tracking-tight">
@@ -89,7 +89,7 @@ export default function AuthPage() {
               className={cn(
                 'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300',
                 mode === 'login'
-                  ? 'gradient-primary text-white glow-blue'
+                  ? 'gradient-primary text-white glow'
                   : 'text-white/25 hover:text-white/45'
               )}
             >
@@ -100,7 +100,7 @@ export default function AuthPage() {
               className={cn(
                 'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300',
                 mode === 'signup'
-                  ? 'gradient-primary text-white glow-blue'
+                  ? 'gradient-primary text-white glow'
                   : 'text-white/25 hover:text-white/45'
               )}
             >
@@ -118,7 +118,7 @@ export default function AuthPage() {
                   onChange={e => update('name', e.target.value)}
                   placeholder="Dein Name"
                   required
-                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
                 />
               </div>
             )}
@@ -131,7 +131,7 @@ export default function AuthPage() {
                 onChange={e => update('email', e.target.value)}
                 placeholder="deine@email.de"
                 required
-                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
               />
             </div>
 
@@ -145,7 +145,7 @@ export default function AuthPage() {
                   placeholder="••••••••"
                   required
                   minLength={6}
-                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 pr-11 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-[#0066FF]/40 focus:bg-white/[0.06] transition-all duration-300"
+                  className="w-full bg-white/[0.04] border border-white/[0.06] rounded-xl px-4 pr-11 py-3 text-sm text-white placeholder:text-white/15 focus:outline-none focus:border-emerald-500/40 focus:bg-white/[0.06] transition-all duration-300"
                 />
                 <button
                   type="button"
@@ -160,7 +160,7 @@ export default function AuthPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full gradient-primary text-white py-3.5 rounded-xl font-bold text-sm glow-blue hover:opacity-90 transition-all disabled:opacity-50 mt-2"
+              className="w-full gradient-primary text-white py-3.5 rounded-xl font-bold text-sm glow hover:opacity-90 transition-all disabled:opacity-50 mt-2"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -173,9 +173,9 @@ export default function AuthPage() {
 
           <p className="text-center text-xs text-white/15 mt-7">
             {mode === 'login' ? (
-              <>Noch kein Konto? <button onClick={() => setMode('signup')} className="text-[#0066FF]/70 hover:text-[#0066FF] transition-colors">Registrieren</button></>
+              <>Noch kein Konto? <button onClick={() => setMode('signup')} className="text-emerald-400/70 hover:text-emerald-400 transition-colors">Registrieren</button></>
             ) : (
-              <>Bereits registriert? <button onClick={() => setMode('login')} className="text-[#0066FF]/70 hover:text-[#0066FF] transition-colors">Anmelden</button></>
+              <>Bereits registriert? <button onClick={() => setMode('login')} className="text-emerald-400/70 hover:text-emerald-400 transition-colors">Anmelden</button></>
             )}
           </p>
         </div>
